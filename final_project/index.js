@@ -5,7 +5,7 @@ const customer_routes = require('./router/auth_users.js').authenticated;
 const genl_routes = require('./router/general.js').general;
 
 const app = express();
-
+const jwtSecret = '244d0b97c61cb978567e348a15fc8cd5c3c5791af982ccae88db48383bc3c272'
 app.use(express.json());
 
 app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
@@ -17,7 +17,7 @@ app.use("/customer/auth/*", function auth(req,res,next){
     }
 
     const token = authHeader.split(' ')[1]; // Bearer <token>
-
+console.log(token)
     // Verify the token
     jwt.verify(token, jwtSecret, (err, decoded) => {
         if (err) {
